@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "backend/backend/api/design"
+	_ "backend/api/design"
 
 	"github.com/shogo82148/goa-v1/design"
 	"github.com/shogo82148/goa-v1/goagen/codegen"

@@ -78,6 +78,9 @@ func (payload *addSightingsPayload) Validate() (err error) {
 	if payload.Situation == nil {
 		err = goa.MergeErrors(err, goa.MissingAttributeError(`raw`, "situation"))
 	}
+	if payload.Details == nil {
+		err = goa.MergeErrors(err, goa.MissingAttributeError(`raw`, "details"))
+	}
 	if payload.Classification == nil {
 		err = goa.MergeErrors(err, goa.MissingAttributeError(`raw`, "classification"))
 	}
@@ -105,7 +108,7 @@ func (payload *addSightingsPayload) Publicize() *AddSightingsPayload {
 		pub.Date = *payload.Date
 	}
 	if payload.Details != nil {
-		pub.Details = payload.Details
+		pub.Details = *payload.Details
 	}
 	if payload.Latitude != nil {
 		pub.Latitude = *payload.Latitude
@@ -133,7 +136,7 @@ type AddSightingsPayload struct {
 	// Date of the sighting (ISO 8601 format)
 	Date string `form:"date" json:"date" yaml:"date" xml:"date"`
 	// Additional details or description
-	Details *string `form:"details,omitempty" json:"details,omitempty" yaml:"details,omitempty" xml:"details,omitempty"`
+	Details string `form:"details" json:"details" yaml:"details" xml:"details"`
 	// Latitude of the sighting location
 	Latitude float64 `form:"latitude" json:"latitude" yaml:"latitude" xml:"latitude"`
 	// Longitude of the sighting location

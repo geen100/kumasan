@@ -9,7 +9,7 @@ var _ = API("BearSighting", func() {
 	Title("Bear Sighting API")
 	Description("API for recording and retrieving bear sightings")
 	Scheme("http")
-	Host("localhost:8000")
+	Host("localhost:8080")
 	Consumes("application/json")
 	Produces("application/json")
 })
@@ -59,7 +59,7 @@ var _ = Resource("sightings", func() {
 				Enum("目撃", "痕跡", "噂")
 				Example("目撃")
 			})
-			Required("latitude", "longitude", "city", "area", "date", "time", "situation", "classification")
+			Required("latitude", "longitude", "city", "area", "date", "time", "situation", "details", "classification")
 		})
 		Response(Created, func() {
 			Media(Sighting)

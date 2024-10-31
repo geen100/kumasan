@@ -1,11 +1,10 @@
 CREATE DATABASE IF NOT EXISTS bear_sighting_db;
 USE bear_sighting_db;
 
--- クマ目撃情報テーブル
 CREATE TABLE IF NOT EXISTS sightings (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    latitude DECIMAL(9,6) NOT NULL,  -- 緯度
-    longitude DECIMAL(9,6) NOT NULL, -- 経度
+    latitude DECIMAL(9,6) NOT NULL,  
+    longitude DECIMAL(9,6) NOT NULL, 
     city VARCHAR(255) NOT NULL,      -- 市町村名
     area VARCHAR(255),               -- 目撃地区の詳細（例: 山の名前、公園名など）
     date DATE NOT NULL,              -- 目撃日

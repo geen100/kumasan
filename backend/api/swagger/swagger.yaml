@@ -63,6 +63,7 @@ definitions:
     - date
     - time
     - situation
+    - details
     - classification
     title: AddSightingsPayload
     type: object
@@ -135,7 +136,7 @@ definitions:
     - classification
     title: 'Mediatype identifier: application/vnd.sighting+json; view=default'
     type: object
-host: localhost:8000
+host: localhost:8080
 info:
   description: API for recording and retrieving bear sightings
   title: Bear Sighting API
