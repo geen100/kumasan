@@ -8,7 +8,7 @@
 package test
 
 import (
-	"backend/api/app"
+	"kumasan/api/app"
 	"context"
 	"fmt"
 	goa "github.com/shogo82148/goa-v1"

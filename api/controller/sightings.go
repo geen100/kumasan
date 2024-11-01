@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"backend/api/app"
-	"backend/api/models"
+	"kumasan/api/app"
+	"kumasan/api/models"
 
 	goa "github.com/shogo82148/goa-v1"
 )

@@ -1,7 +1,7 @@
 services:
   app:
     build:
-      context: ./backend
+      context: .
       dockerfile: api/Dockerfile
     ports:
       - "${APP_PORT}:8080"
@@ -28,4 +28,4 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-    - ./backend/database/init:/docker-entrypoint-initdb.d
+      - ./database/init:/docker-entrypoint-initdb.d
