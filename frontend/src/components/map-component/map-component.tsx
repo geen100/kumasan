@@ -1,34 +1,62 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./styles.css";
 
 function MapComponent() {
+  const mapRef = useRef<H.Map | null>(null);
+  const initialCenter = { lat: 37.9161, lng: 139.0364 };
+  const initialZoom = 10;
+  const [currentZoom, setCurrentZoom] = useState(initialZoom);
+
   useEffect(() => {
-    // Initialize the platform object
     const platform = new H.service.Platform({
-      apikey: "z64shwIcaUhARZoFqoPx0eSuGxgcRm8XWELkCDFSnqU",
+      apikey: import.meta.env.VITE_HERE_MAP_API_KEY,
     });
 
     const defaultLayers = platform.createDefaultLayers();
 
-    const map = new H.Map(
-      document.getElementById("map"),
-      defaultLayers.vector.normal.map,
-      {
-        zoom: 10,
-        center: { lat: 37.9161, lng: 139.0364 },
-      }
-    );
+    const mapElement = document.getElementById("map");
+    if (mapElement) {
+      const map = new H.Map(mapElement, defaultLayers.vector.normal.map, {
+        zoom: initialZoom,
+        center: initialCenter,
+      });
 
-    const mapEvents = new H.mapevents.MapEvents(map);
-    const behavior = new H.mapevents.Behavior(mapEvents);
-    const ui = H.ui.UI.createDefault(map, defaultLayers);
+      mapRef.current = map;
 
-    return () => {
-      map.dispose();
-    };
+      const mapEvents = new H.mapevents.MapEvents(map);
+      const behavior = new H.mapevents.Behavior(mapEvents);
+      const ui = H.ui.UI.createDefault(map, defaultLayers);
+
+      map.addEventListener("mapviewchangeend", () => {
+        setCurrentZoom(Math.round(map.getZoom()));
+      });
+
+      return () => {
+        map.dispose();
+      };
+    }
   }, []);
 
-  return <div id="map" className="map-container"></div>;
+  const resetMap = () => {
+    if (mapRef.current) {
+      const map = mapRef.current;
+
+      map.setCenter(initialCenter);
+      map.setZoom(initialZoom);
+    }
+  };
+
+  return (
+    <div className="map-container">
+      <div id="map"></div>
+      <div className="map-control">
+        <button onClick={resetMap} className="map-control-button">
+          Reset
+        </button>
+        <div className="map-control-zoom">Zoom : {currentZoom} %</div>
+      </div>
+    </div>
+  );
 }
 
 export default MapComponent;

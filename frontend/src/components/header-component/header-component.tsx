@@ -1,6 +1,5 @@
 import "./styles.css";
 import KUMA_LOGO from "../../assets/icons/kumasan-logo.png";
-import MENU_ICON from "../../assets/icons/menubar-icon.png";
 
 //これはヘッダーのコンポーネントです。
 function HeaderComponent() {
@@ -10,7 +9,11 @@ function HeaderComponent() {
         <div className="header-container">
           <div className="header-left">
             <button className="menu-icon">
-              <img src={MENU_ICON} alt="menu" />
+              <img
+                src="https://img.icons8.com/ios-filled/500/menu--v6.png"
+                alt="menu"
+                className="menu-icon-img"
+              />
             </button>
             <img src={KUMA_LOGO} alt="logo" className="kumasan-logo" />
           </div>
