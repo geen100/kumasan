@@ -1,0 +1,152 @@
+consumes:
+- application/json
+definitions:
+  AddBearPayload:
+    example:
+      address: 東京都渋谷区
+      city: 東京都
+      date: "2024-10-12"
+      details: 体重約200kgのクマがゆっくりと移動していた。
+      latitude: 35.6895
+      longitude: 139.6917
+      time: "09:30"
+    properties:
+      address:
+        description: 目撃場所の具体的な住所
+        example: 東京都渋谷区
+        type: string
+      city:
+        description: 目撃があった市区町村
+        example: 東京都
+        type: string
+      date:
+        description: 目撃日 (ISO 8601フォーマット)
+        example: "2024-10-12"
+        type: string
+      details:
+        description: 目撃の追加詳細や説明
+        example: 体重約200kgのクマがゆっくりと移動していた。
+        type: string
+      latitude:
+        description: 目撃場所の緯度
+        example: 35.6895
+        format: double
+        type: number
+      longitude:
+        description: 目撃場所の経度
+        example: 139.6917
+        format: double
+        type: number
+      time:
+        description: 目撃時刻 (24時間形式 HH:MM)
+        example: "09:30"
+        type: string
+    required:
+    - latitude
+    - longitude
+    - city
+    - address
+    - date
+    - time
+    - details
+    title: AddBearPayload
+    type: object
+  Sighting:
+    description: クマ目撃情報 (default view)
+    example:
+      address: Praesentium inventore officiis praesentium voluptas totam ut.
+      city: Quo qui totam.
+      date: Molestiae consequatur harum et autem.
+      details: Quod iusto ducimus.
+      id: Omnis consequatur repellendus aut velit voluptatem iusto.
+      latitude: 0.8456461936439296
+      longitude: 0.11211262589542992
+      time: Possimus quis.
+    properties:
+      address:
+        description: 目撃場所の具体的な住所
+        example: Praesentium inventore officiis praesentium voluptas totam ut.
+        type: string
+      city:
+        description: 目撃があった市区町村
+        example: Quo qui totam.
+        type: string
+      date:
+        description: 目撃日
+        example: Molestiae consequatur harum et autem.
+        type: string
+      details:
+        description: 目撃の追加詳細や説明
+        example: Quod iusto ducimus.
+        type: string
+      id:
+        description: 一意の目撃情報ID
+        example: Omnis consequatur repellendus aut velit voluptatem iusto.
+        type: string
+      latitude:
+        description: 目撃場所の緯度
+        example: 0.8456461936439296
+        format: double
+        type: number
+      longitude:
+        description: 目撃場所の経度
+        example: 0.11211262589542992
+        format: double
+        type: number
+      time:
+        description: 目撃時刻
+        example: Possimus quis.
+        type: string
+    required:
+    - id
+    - latitude
+    - longitude
+    - city
+    - address
+    - date
+    - time
+    - details
+    title: 'Mediatype identifier: application/vnd.sighting+json; view=default'
+    type: object
+host: localhost:8080
+info:
+  description: クマ目撃情報の記録を行うAPI
+  title: Bear API
+  version: ""
+paths:
+  /bear/:
+    post:
+      description: 新しいクマ目撃情報を追加する
+      operationId: bear#add
+      parameters:
+      - in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/AddBearPayload'
+      produces:
+      - application/vnd.sighting+json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/Sighting'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      schemes:
+      - http
+      summary: add bear
+      tags:
+      - bear
+produces:
+- application/json
+responses:
+  BadRequest:
+    description: Bad Request
+  InternalServerError:
+    description: Internal Server Error
+schemes:
+- http
+swagger: "2.0"
