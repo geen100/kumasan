@@ -1,16 +1,17 @@
 package mysql
 
 import (
+	"os"
+
 	"github.com/go-sql-driver/mysql"
 )
 
-// NewMySQLConfig は MySQL の設定を生成します。
 func NewMySQLConfig() *mysql.Config {
 	return &mysql.Config{
-		User:   "your-username", // 必要に応じて変更
-		Passwd: "your-password", // 必要に応じて変更
+		User:   os.Getenv("DB_USER"),
+		Passwd: os.Getenv("DB_PASS"),
 		Net:    "tcp",
-		Addr:   "127.0.0.1:3306", // 必要に応じて変更
-		DBName: "your-database",  // 必要に応じて変更
+		Addr:   os.Getenv("DB_HOST"),
+		DBName: os.Getenv("DB_NAME"),
 	}
 }

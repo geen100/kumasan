@@ -14,6 +14,7 @@ import (
 
 // WireSet は webapi の依存性を解決するための Wire セット
 var WireSet = wire.NewSet(
+	mysql.NewMySQLConfig,
 	interactor.ConsoleSet, // interactor の依存関係を注入
 	mysql.Set,             // datastore の依存関係を注入
 	NewBearController,     // BearController をプロバイダーとして指定
