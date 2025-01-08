@@ -9,13 +9,12 @@
 }
 
 .map-control {
-    width: 280px;
-    background-color: #ffffff;
+    width: 240px;
     position: absolute;
     bottom: 0px;
     right: 0;
     z-index: 1000;
-    padding: 20px 33px;
+    padding: 30px 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

@@ -24,8 +24,8 @@ function MapComponent() {
       mapRef.current = map;
 
       const mapEvents = new H.mapevents.MapEvents(map);
-      const behavior = new H.mapevents.Behavior(mapEvents);
-      const ui = H.ui.UI.createDefault(map, defaultLayers);
+      new H.mapevents.Behavior(mapEvents);
+      H.ui.UI.createDefault(map, defaultLayers);
 
       map.addEventListener("mapviewchangeend", () => {
         setCurrentZoom(Math.round(map.getZoom()));
