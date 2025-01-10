@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./styles.css";
+import "./map.styles.css";
 
 function MapComponent() {
   const mapRef = useRef<H.Map | null>(null);
