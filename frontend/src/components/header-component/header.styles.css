@@ -1,15 +1,16 @@
 .header {
-  background-color: #ffdfcb;
-  padding: 0 50px;
   position: fixed;
   width: 100%;
-
   z-index: 100;
+  display: flex;
+  flex-direction: column;
 }
 
 .header-container {
   display: flex;
   align-items: center;
+  background-color: #ffdfcb;
+  padding: 0 30px;
 }
 
 .header-left {
@@ -41,8 +42,6 @@
 .menu-icon:hover .menu-icon-img {
   content: url('https://img.icons8.com/ios-filled/500/FFFFFF/menu--v6.png');
 }
-
-
 
 .kumasan-logo {
   width: auto;
