@@ -11,13 +11,13 @@ function MenuComponent({ isOpen }: { isOpen: boolean }) {
           className={`tab-button ${activeTab === "news" ? "active" : ""}`}
           onClick={() => setActiveTab("news")}
         >
-          News
+          最近のニュース
         </button>
         <button
           className={`tab-button ${activeTab === "comments" ? "active" : ""}`}
           onClick={() => setActiveTab("comments")}
         >
-          Comments
+          最近のコメント
         </button>
       </div>
       <div className="tab-content">
