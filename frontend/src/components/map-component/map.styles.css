@@ -9,39 +9,28 @@
 }
 
 .map-control {
-    width: 240px;
+    background-color: #ffffff;
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 10cm;
     position: absolute;
-    bottom: 0px;
-    right: 0;
-    z-index: 1000;
-    padding: 30px 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+    bottom: 40px;
+    right: 40px;
+    padding: 10px;
+    z-index: 100;
+    transition: all 0.3s ease-in-out;
 }
 
-.map-control-button {
-    height: 100%;
-    width: 100%;
-    border: none;
-    cursor: pointer;
-    background-color: #00a3d9;
-    font-size: 16px;
-    font-weight: 600;
-    color: #f5f5f5;
-    padding: 5px;
-    border-radius: 15px;
-    transition: background-color 0.3s ease;
-    flex: 1;
+.map-control:hover {
+    transform: scale(1.4) translate(-10px, -10px);
+    transition: all 0.3s ease-in-out;
 }
 
-.map-control-button:hover {
-    background-color: #000000;
-    color: #ffffff;
+.map-control img {
+    width: 50px;
+    height: 50px;
 }
 
 .map-control-zoom {
+    font-size: 20px;
     font-weight: 600;
 }

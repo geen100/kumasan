@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./map.styles.css";
+import mapPin from "../../assets/icons/map-pin_icon.png";
 
 function MapComponent() {
   const mapRef = useRef<H.Map | null>(null);
@@ -47,15 +48,14 @@ function MapComponent() {
   };
 
   return (
-    <div className="map-container">
-      <div id="map"></div>
-      <div className="map-control">
-        <button onClick={resetMap} className="map-control-button">
-          Reset
-        </button>
-        <div className="map-control-zoom">Zoom : {currentZoom} %</div>
+    <>
+      <div className="map-container">
+        <div id="map"></div>
       </div>
-    </div>
+      <div className="map-control">
+        <img onClick={resetMap} src={mapPin} alt="Kumasan" />
+      </div>
+    </>
   );
 }
 
