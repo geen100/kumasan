@@ -16,7 +16,10 @@ function HeaderComponent() {
       <div className="header">
         <div className="header-container">
           <div className="header-left">
-            <button className="menu-icon" onClick={toggleMenu}>
+            <button
+              className={`menu-icon ${isMenuOpen ? "active" : ""}`}
+              onClick={toggleMenu}
+            >
               <img
                 src="https://img.icons8.com/ios-filled/500/menu--v6.png"
                 alt="menu"

@@ -11,6 +11,7 @@
   align-items: center;
   background-color: #ffdfcb;
   padding: 0 30px;
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.1);
 }
 
 .header-left {
@@ -26,8 +27,8 @@
   background-color: transparent;
   cursor: pointer;
   padding: 10px;
-  border-radius: 15px;
-  transition: background-color 0.3s ease;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
 }
 
 .menu-icon-img {
@@ -35,8 +36,10 @@
   height: 100%;
 }
 
-.menu-icon:hover {
+.menu-icon:hover,
+.menu-icon:active {
   background-color: black;
+  transition: all 0.3s ease-in-out;
 }
 
 .menu-icon:hover .menu-icon-img {
@@ -51,4 +54,27 @@
 .header-right {
   display: flex;
   align-items: center;
+}
+
+.menu-icon.active {
+  transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+  border: 3px solid #000000;
+  transform: rotate(180deg);
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-icon.active .menu-icon-img {
+  content: url('https://img.icons8.com/ios-filled/100/double-right.png');
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-icon.active:hover {
+  background-color: #000000;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-icon.active:hover .menu-icon-img {
+  content: url('https://img.icons8.com/ios-filled/100/FFFFFF/double-right.png');
+  transition: all 0.3s ease-in-out;
 }

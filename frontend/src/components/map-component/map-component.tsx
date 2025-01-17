@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import "./map.styles.css";
 import mapPin from "../../assets/icons/map-pin_icon.png";
 
@@ -6,7 +6,6 @@ function MapComponent() {
   const mapRef = useRef<H.Map | null>(null);
   const initialCenter = { lat: 37.9161, lng: 139.0364 };
   const initialZoom = 10;
-  const [currentZoom, setCurrentZoom] = useState(initialZoom);
 
   useEffect(() => {
     const platform = new H.service.Platform({
@@ -27,10 +26,6 @@ function MapComponent() {
       const mapEvents = new H.mapevents.MapEvents(map);
       new H.mapevents.Behavior(mapEvents);
       H.ui.UI.createDefault(map, defaultLayers);
-
-      map.addEventListener("mapviewchangeend", () => {
-        setCurrentZoom(Math.round(map.getZoom()));
-      });
 
       return () => {
         map.dispose();
