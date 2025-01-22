@@ -6,6 +6,7 @@ package webapi
 import (
 	"backend/app/datastore/mysql"
 	"backend/app/interactor"
+	"backend/database"
 	"backend/webapi/app"
 
 	"github.com/google/wire"
@@ -14,6 +15,7 @@ import (
 
 // WireSet は webapi の依存性を解決するための Wire セット
 var WireSet = wire.NewSet(
+	database.NewDB,
 	mysql.NewMySQLConfig,
 	interactor.ConsoleSet, // interactor の依存関係を注入
 	mysql.Set,             // datastore の依存関係を注入

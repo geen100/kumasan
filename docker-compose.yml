@@ -2,7 +2,6 @@ services:
   app:
     build:
       context: .
-      dockerfile: api/Dockerfile
     ports:
       - "${APP_PORT}:8080"
     depends_on:

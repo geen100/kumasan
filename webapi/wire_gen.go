@@ -9,6 +9,7 @@ package webapi
 import (
 	"backend/app/datastore/mysql"
 	"backend/app/interactor"
+	"backend/database"
 	"backend/webapi/app"
 	"github.com/google/wire"
 	"github.com/shogo82148/goa-v1"
@@ -36,4 +37,4 @@ func InitializeBearController(service *goa.Service) (*BearController, error) {
 // wire.go:
 
 // WireSet は webapi の依存性を解決するための Wire セット
-var WireSet = wire.NewSet(mysql.NewMySQLConfig, interactor.ConsoleSet, mysql.Set, NewBearController, wire.Bind(new(app.BearController), new(*BearController)))
+var WireSet = wire.NewSet(database.NewDB, mysql.NewMySQLConfig, interactor.ConsoleSet, mysql.Set, NewBearController, wire.Bind(new(app.BearController), new(*BearController)))

@@ -19,6 +19,7 @@ func NewDB() (*sql.DB, error) {
 		os.Getenv("MYSQL_PORT"),
 		os.Getenv("MYSQL_DATABASE"),
 	)
+	log.Printf("Connecting to Mysql with dbConn: %s", dbConn)
 
 	db, err := sql.Open("mysql", dbConn)
 	if err != nil {
