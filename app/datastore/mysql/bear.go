@@ -5,7 +5,7 @@ import (
 	"backend/app/repository"
 	"context"
 
-	"github.com/shogo82148/goa-v1/uuid"
+	"github.com/gofrs/uuid"
 )
 
 type bearCreater struct{}
@@ -17,7 +17,7 @@ func NewBearCreator() *bearCreater {
 }
 
 func (*bearCreater) CreateBear(ctx context.Context, execer repository.Execer, input *repository.CreatebearInput) (*repository.CreatebearOutput, error) {
-	id := uuid.NewV4().String()
+	id := uuid.Must(uuid.NewV7()).String()
 
 	_, err := execer.ExecContext(ctx,
 		"INSERT INTO `bear` "+
