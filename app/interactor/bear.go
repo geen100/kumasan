@@ -5,6 +5,8 @@ import (
 	"backend/app/repository"
 	"backend/app/usecase"
 	"context"
+	"errors"
+	"fmt"
 )
 
 // BearCreatorConfig クマ情報作成ユースケースの設定
@@ -51,8 +53,7 @@ func (c *bearCreater) CreateBear(ctx context.Context, input *usecase.CreateBearI
 		return nil, err
 	}
 
-	// 作成されたクマ情報をモデル化
-	bear := model.Bear{
+	return &usecase.CreateBearOutput{Bear: model.Bear{
 		ID:        created.ID,
 		Latitude:  input.Latitude,
 		Longitude: input.Longitude,
@@ -61,9 +62,41 @@ func (c *bearCreater) CreateBear(ctx context.Context, input *usecase.CreateBearI
 		Date:      input.Date,
 		Time:      input.Time,
 		Details:   input.Details,
+	}}, nil
+}
+
+// BearGetterconfig クマ情報の取得ユースケース作成
+type BearGetterconfig struct {
+	Queryer    repository.Queryer
+	bearGetter repository.BearGetter
+}
+
+type bearGetter struct {
+	cfg *BearGetterconfig
+}
+
+var _ usecase.BearGetter = (*bearGetter)(nil)
+
+// NewBearGetter クマ情報の取得ユースケース生成
+func NewBearGetter(cfg *BearGetterconfig) *bearGetter {
+	return &bearGetter{cfg: cfg}
+}
+
+// GetBear implements usecase.BearGetter interface
+func (g *bearGetter) GetBear(ctx context.Context, input *usecase.GetBearInput) (*usecase.GetBearOutput, error) {
+	bear, err := g.cfg.bearGetter.GetBear(ctx, g.cfg.Queryer, &repository.GetBearInput{
+		ID: input.ID,
+	})
+	if err != nil {
+		if errors.Is(err, repository.ErrBearNotFound) {
+			return nil, fmt.Errorf("bear not found: %w", usecase.ErrResourceNotFound)
+		}
+		return nil, err
 	}
 
-	return &usecase.CreateBearOutput{
-		Bear: bear,
-	}, nil
+	output := &usecase.GetBearOutput{
+		Bear: bear.Bear,
+	}
+	return output, nil
+
 }
