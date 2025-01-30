@@ -40,7 +40,7 @@ type (
 	}
 	// BearGetter クマの情報を取得するインターフェース
 	BearGetter interface {
-		// GetBear クマの情報を取得する取得する
+		// GetBear クマの情報を取得する
 		GetBear(context.Context, *GetBearInput) (*GetBearOutput, error)
 	}
 )
