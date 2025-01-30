@@ -147,3 +147,54 @@ func (ctx *AddBearContext) InternalServerError() error {
 	ctx.ResponseData.WriteHeader(500)
 	return nil
 }
+
+// GetBearContext provides the bear get action context.
+type GetBearContext struct {
+	context.Context
+	*goa.ResponseData
+	*goa.RequestData
+	ID string
+}
+
+// NewGetBearContext parses the incoming request URL and body, performs validations and creates the
+// context used by the bear controller get action.
+func NewGetBearContext(ctx context.Context, r *http.Request, service *goa.Service) (*GetBearContext, error) {
+	var err error
+	resp := goa.ContextResponse(ctx)
+	resp.Service = service
+	req := goa.ContextRequest(ctx)
+	req.Request = r
+	rctx := GetBearContext{Context: ctx, ResponseData: resp, RequestData: req}
+	paramID := req.Params["id"]
+	if len(paramID) > 0 {
+		rawID := paramID[0]
+		rctx.ID = rawID
+	}
+	return &rctx, err
+}
+
+// OK sends a HTTP response with status code 200.
+func (ctx *GetBearContext) OK(r *Sighting) error {
+	if ctx.ResponseData.Header().Get("Content-Type") == "" {
+		ctx.ResponseData.Header().Set("Content-Type", "application/json")
+	}
+	return ctx.ResponseData.Service.Send(ctx.Context, 200, r)
+}
+
+// BadRequest sends a HTTP response with status code 400.
+func (ctx *GetBearContext) BadRequest() error {
+	ctx.ResponseData.WriteHeader(400)
+	return nil
+}
+
+// NotFound sends a HTTP response with status code 404.
+func (ctx *GetBearContext) NotFound() error {
+	ctx.ResponseData.WriteHeader(404)
+	return nil
+}
+
+// InternalServerError sends a HTTP response with status code 500.
+func (ctx *GetBearContext) InternalServerError() error {
+	ctx.ResponseData.WriteHeader(500)
+	return nil
+}

@@ -140,6 +140,34 @@ paths:
       summary: add bear
       tags:
       - bear
+  /bear/{id}:
+    get:
+      description: 指定されたIDのクマ目撃情報を取得する
+      operationId: bear#get
+      parameters:
+      - description: 目撃情報の一意のID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/vnd.sighting+json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Sighting'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      schemes:
+      - http
+      summary: get bear
+      tags:
+      - bear
 produces:
 - application/json
 responses:
@@ -147,6 +175,8 @@ responses:
     description: Bad Request
   InternalServerError:
     description: Internal Server Error
+  NotFound:
+    description: Not Found
 schemes:
 - http
 swagger: "2.0"

@@ -28,6 +28,7 @@ func initService(service *goa.Service) {
 type BearController interface {
 	goa.Muxer
 	Add(*AddBearContext) error
+	Get(*GetBearContext) error
 }
 
 // MountBearController "mounts" a Bear resource controller on the given service.
@@ -55,6 +56,21 @@ func MountBearController(service *goa.Service, ctrl BearController) {
 	}
 	service.Mux.Handle("POST", "/bear/", ctrl.MuxHandler("add", h, unmarshalAddBearPayload))
 	service.LogInfo("mount", "ctrl", "Bear", "action", "Add", "route", "POST /bear/")
+
+	h = func(ctx context.Context, rw http.ResponseWriter, req *http.Request) error {
+		// Check if there was an error loading the request
+		if err := goa.ContextError(ctx); err != nil {
+			return err
+		}
+		// Build the context
+		rctx, err := NewGetBearContext(ctx, req, service)
+		if err != nil {
+			return err
+		}
+		return ctrl.Get(rctx)
+	}
+	service.Mux.Handle("GET", "/bear/:id", ctrl.MuxHandler("get", h, nil))
+	service.LogInfo("mount", "ctrl", "Bear", "action", "Get", "route", "GET /bear/:id")
 }
 
 // unmarshalAddBearPayload unmarshals the request body into the context request data Payload field.

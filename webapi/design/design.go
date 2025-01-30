@@ -59,6 +59,21 @@ var _ = Resource("bear", func() {
 		Response(BadRequest)
 		Response(InternalServerError)
 	})
+
+	// クマ目撃情報を取得するアクション
+	Action("get", func() {
+		Routing(GET("/:id"))
+		Description("指定されたIDのクマ目撃情報を取得する")
+		Params(func() {
+			Param("id", String, "目撃情報の一意のID")
+		})
+		Response(OK, func() {
+			Media(Sighting)
+		})
+		Response(NotFound)
+		Response(BadRequest)
+		Response(InternalServerError)
+	})
 })
 
 // クマ目撃情報のメディアタイプ定義
