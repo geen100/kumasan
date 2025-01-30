@@ -22,9 +22,25 @@ type (
 		Bear model.Bear
 	}
 
-	// BearCreator  クマ情報通を作成するインターフェース
+	// BearCreator クマ情報を作成するインターフェース
 	BearCreator interface {
 		// CreateBear クマ情報を作成する
 		CreateBear(context.Context, *CreateBearInput) (*CreateBearOutput, error)
+	}
+)
+
+type (
+	// GetBearInput GetBear の入力
+	GetBearInput struct {
+		ID model.BearID
+	}
+	// GetBearOutput GetBear の出力
+	GetBearOutput struct {
+		Bear model.Bear
+	}
+	// BearGetter クマの情報を取得するインターフェース
+	BearGetter interface {
+		// GetBear クマの情報を取得する取得する
+		GetBear(context.Context, *GetBearInput) (*GetBearOutput, error)
 	}
 )
