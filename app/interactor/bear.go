@@ -34,7 +34,7 @@ func (c *bearCreater) CreateBear(ctx context.Context, input *usecase.CreateBearI
 	defer tx.Rollback()
 
 	// クマ情報を登録
-	created, err := c.cfg.BearCreator.CreateBear(ctx, tx, &repository.CreatebearInput{
+	created, err := c.cfg.BearCreator.CreateBear(ctx, tx, &repository.CreateBearInput{
 		Latitude:  input.Latitude,
 		Longitude: input.Longitude,
 		City:      input.City,

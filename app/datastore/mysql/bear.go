@@ -16,7 +16,7 @@ func NewBearCreator() *bearCreater {
 	return &bearCreater{}
 }
 
-func (*bearCreater) CreateBear(ctx context.Context, execer repository.Execer, input *repository.CreatebearInput) (*repository.CreatebearOutput, error) {
+func (*bearCreater) CreateBear(ctx context.Context, execer repository.Execer, input *repository.CreateBearInput) (*repository.CreateBearOutput, error) {
 	id := uuid.Must(uuid.NewV7()).String()
 
 	_, err := execer.ExecContext(ctx,
@@ -29,7 +29,7 @@ func (*bearCreater) CreateBear(ctx context.Context, execer repository.Execer, in
 		return nil, err
 	}
 
-	return &repository.CreatebearOutput{
+	return &repository.CreateBearOutput{
 		ID: model.BearID(id),
 	}, nil
 }
