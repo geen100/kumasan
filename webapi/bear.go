@@ -5,30 +5,36 @@ package webapi
 import (
 	"errors"
 
+	"backend/app/model"
 	"backend/app/usecase"
 	"backend/webapi/app"
 
 	goa "github.com/shogo82148/goa-v1"
 )
 
-// BearController implements the bear resource.
+type BearControllerConfig struct {
+	creater usecase.BearCreator
+	getter  usecase.BearGetter
+}
+
+// NotificationController はPUSH通知を管理します。
 type BearController struct {
 	*goa.Controller
-	creator usecase.BearCreator
+	cfg *BearControllerConfig
 }
 
 // NewBearController creates a bear controller.
-func NewBearController(service *goa.Service, creator usecase.BearCreator) *BearController {
+func NewBearController(service *goa.Service, cfg *BearControllerConfig) *BearController {
 	return &BearController{
 		Controller: service.NewController("BearController"),
-		creator:    creator,
+		cfg:        cfg,
 	}
 }
 
 // Add runs the add action.
 func (c *BearController) Add(ctx *app.AddBearContext) error {
 	// 入力をユースケース層に渡す
-	out, err := c.creator.CreateBear(ctx, &usecase.CreateBearInput{
+	out, err := c.cfg.creater.CreateBear(ctx, &usecase.CreateBearInput{
 		Latitude:  ctx.Payload.Latitude,
 		Longitude: ctx.Payload.Longitude,
 		City:      ctx.Payload.City,
@@ -59,4 +65,27 @@ func (c *BearController) Add(ctx *app.AddBearContext) error {
 	}
 
 	return ctx.Created(res)
+}
+
+func (c *BearController) Get(ctx *app.GetBearContext) error {
+	out, err := c.cfg.getter.GetBear(ctx, &usecase.GetBearInput{
+		ID: model.BearID(ctx.ID),
+	})
+	if err != nil {
+		if errors.Is(err, usecase.ErrResourceNotFound) {
+			return ctx.NotFound()
+		}
+		return err
+	}
+
+	return ctx.OK(&app.Sighting{
+		ID:        string(out.Bear.ID),
+		Latitude:  out.Bear.Latitude,
+		Longitude: out.Bear.Longitude,
+		City:      out.Bear.City,
+		Address:   out.Bear.Address,
+		Date:      out.Bear.Date,
+		Time:      out.Bear.Time,
+		Details:   out.Bear.Details,
+	})
 }
