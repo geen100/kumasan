@@ -8,5 +8,10 @@ import (
 
 var ConsoleSet = wire.NewSet(
 	NewBearCreater,
-	wire.Struct(new(BearCreatorConfig), "*"), wire.Bind(new(usecase.BearCreator), new(*bearCreater)),
+	wire.Struct(new(BearCreatorConfig), "*"),
+	wire.Bind(new(usecase.BearCreator), new(*bearCreater)),
+
+	NewBearGetter,
+	wire.Struct(new(BearGetterconfig), "*"),
+	wire.Bind(new(usecase.BearGetter), new(*bearGetter)),
 )

@@ -68,7 +68,7 @@ func (c *bearCreater) CreateBear(ctx context.Context, input *usecase.CreateBearI
 // BearGetterconfig クマ情報の取得ユースケース作成
 type BearGetterconfig struct {
 	Queryer    repository.Queryer
-	bearGetter repository.BearGetter
+	BearGetter repository.BearGetter
 }
 
 type bearGetter struct {
@@ -84,7 +84,7 @@ func NewBearGetter(cfg *BearGetterconfig) *bearGetter {
 
 // GetBear implements usecase.BearGetter interface
 func (g *bearGetter) GetBear(ctx context.Context, input *usecase.GetBearInput) (*usecase.GetBearOutput, error) {
-	bear, err := g.cfg.bearGetter.GetBear(ctx, g.cfg.Queryer, &repository.GetBearInput{
+	bear, err := g.cfg.BearGetter.GetBear(ctx, g.cfg.Queryer, &repository.GetBearInput{
 		ID: input.ID,
 	})
 	if err != nil {

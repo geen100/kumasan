@@ -6,6 +6,7 @@ package webapi
 import (
 	"backend/app/datastore/mysql"
 	"backend/app/interactor"
+	"backend/app/usecase"
 	"backend/database"
 	"backend/webapi/app"
 
@@ -19,9 +20,18 @@ var WireSet = wire.NewSet(
 	mysql.NewMySQLConfig,
 	interactor.ConsoleSet, // interactor の依存関係を注入
 	mysql.Set,             // datastore の依存関係を注入
-	NewBearController,     // BearController をプロバイダーとして指定
-	wire.Bind(new(app.BearController), new(*BearController)), // BearController を app のインターフェースにバインド
+
+	NewBearControllerConfig,
+	NewBearController,
+	wire.Bind(new(app.BearController), new(*BearController)),
 )
+
+func NewBearControllerConfig(creater usecase.BearCreator, getter usecase.BearGetter) *BearControllerConfig {
+	return &BearControllerConfig{
+		creater: creater,
+		getter:  getter,
+	}
+}
 
 // InitializeBearController は BearController の依存関係を初期化します。
 func InitializeBearController(service *goa.Service) (*BearController, error) {

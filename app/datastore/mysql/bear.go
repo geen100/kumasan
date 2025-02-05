@@ -10,15 +10,15 @@ import (
 	"github.com/gofrs/uuid"
 )
 
-type bearCreater struct{}
+type bearCreator struct{}
 
-var _ repository.BearCreator = (*bearCreater)(nil)
+var _ repository.BearCreator = (*bearCreator)(nil)
 
-func NewBearCreator() *bearCreater {
-	return &bearCreater{}
+func NewBearCreater() *bearCreator {
+	return &bearCreator{}
 }
 
-func (*bearCreater) CreateBear(ctx context.Context, execer repository.Execer, input *repository.CreateBearInput) (*repository.CreateBearOutput, error) {
+func (*bearCreator) CreateBear(ctx context.Context, execer repository.Execer, input *repository.CreateBearInput) (*repository.CreateBearOutput, error) {
 	id := uuid.Must(uuid.NewV7()).String()
 
 	_, err := execer.ExecContext(ctx,

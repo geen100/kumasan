@@ -11,6 +11,8 @@ var Set = wire.NewSet(
 	wire.Bind(new(repository.DB), new(*DB)),
 	wire.Bind(new(repository.TxBeginner), new(*DB)),
 	wire.Bind(new(repository.Queryer), new(*DB)),
-	NewBearCreator,
-	wire.Bind(new(repository.BearCreator), new(*bearCreater)),
+	NewBearCreater,
+	wire.Bind(new(repository.BearCreator), new(*bearCreator)),
+	NewBearGetter,
+	wire.Bind(new(repository.BearGetter), new(*bearGetter)),
 )

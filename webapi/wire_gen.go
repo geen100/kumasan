@@ -9,6 +9,7 @@ package webapi
 import (
 	"backend/app/datastore/mysql"
 	"backend/app/interactor"
+	"backend/app/usecase"
 	"backend/database"
 	"backend/webapi/app"
 	"github.com/google/wire"
@@ -24,17 +25,33 @@ func InitializeBearController(service *goa.Service) (*BearController, error) {
 	if err != nil {
 		return nil, err
 	}
-	bearCreater := mysql.NewBearCreator()
+	bearCreator := mysql.NewBearCreater()
 	bearCreatorConfig := &interactor.BearCreatorConfig{
 		TxBeginner:  db,
-		BearCreator: bearCreater,
+		BearCreator: bearCreator,
 	}
-	interactorBearCreater := interactor.NewBearCreater(bearCreatorConfig)
-	bearController := NewBearController(service, interactorBearCreater)
+	bearCreater := interactor.NewBearCreater(bearCreatorConfig)
+	bearGetter := mysql.NewBearGetter()
+	bearGetterconfig := &interactor.BearGetterconfig{
+		Queryer:    db,
+		BearGetter: bearGetter,
+	}
+	interactorBearGetter := interactor.NewBearGetter(bearGetterconfig)
+	bearControllerConfig := NewBearControllerConfig(bearCreater, interactorBearGetter)
+	bearController := NewBearController(service, bearControllerConfig)
 	return bearController, nil
 }
 
 // wire.go:
 
 // WireSet は webapi の依存性を解決するための Wire セット
-var WireSet = wire.NewSet(database.NewDB, mysql.NewMySQLConfig, interactor.ConsoleSet, mysql.Set, NewBearController, wire.Bind(new(app.BearController), new(*BearController)))
+var WireSet = wire.NewSet(database.NewDB, mysql.NewMySQLConfig, interactor.ConsoleSet, mysql.Set, NewBearControllerConfig,
+	NewBearController, wire.Bind(new(app.BearController), new(*BearController)),
+)
+
+func NewBearControllerConfig(creater usecase.BearCreator, getter usecase.BearGetter) *BearControllerConfig {
+	return &BearControllerConfig{
+		creater: creater,
+		getter:  getter,
+	}
+}
