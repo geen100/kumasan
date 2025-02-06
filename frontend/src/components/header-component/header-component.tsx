@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./header.styles.css";
 import KUMA_LOGO from "../../assets/icons/kumasan-logo.png";
 import MenuComponent from "../menu-component/menu-component";
@@ -6,14 +6,31 @@ import MenuComponent from "../menu-component/menu-component";
 //これはヘッダーのコンポーネントです。
 function HeaderComponent() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLDivElement | null>(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      headerRef.current &&
+      !headerRef.current.contains(event.target as Node)
+    ) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
-      <div className="header">
+      <div className="header" ref={headerRef}>
         <div className="header-container">
           <div className="header-left">
             <button
