@@ -6,6 +6,10 @@ declare namespace H {
     }
   }
   class Map {
+    addObject(marker: any) {
+      throw new Error("Method not implemented.");
+    }
+    static Marker: any;
     addEventListener(arg0: string, arg1: () => void) {
       throw new Error("Method not implemented.");
     }

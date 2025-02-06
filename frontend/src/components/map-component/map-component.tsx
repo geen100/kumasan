@@ -3,11 +3,33 @@ import "./map.styles.css";
 
 function MapComponent() {
   const mapRef = useRef<H.Map | null>(null);
-  const initialCenter = { lat: 37.9161, lng: 139.0364 };
+  const [initialCenter, setInitialCenter] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
   const initialZoom = 10;
   const [currentZoom, setCurrentZoom] = useState(initialZoom);
 
   useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setInitialCenter({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error("Error getting location: ", error);
+        }
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!initialCenter) return;
+    console.log("initialCenter", initialCenter);
+
     const platform = new H.service.Platform({
       apikey: import.meta.env.VITE_HERE_MAP_API_KEY,
     });
@@ -27,7 +49,6 @@ function MapComponent() {
       new H.mapevents.Behavior(mapEvents);
       H.ui.UI.createDefault(map, defaultLayers);
 
-      // Add event listener for zoom changes
       map.addEventListener("mapviewchangeend", () => {
         setCurrentZoom(map.getZoom());
       });
@@ -36,15 +57,17 @@ function MapComponent() {
         map.dispose();
       };
     }
-  }, []);
+  }, [initialCenter]);
 
   const resetMap = () => {
     if (mapRef.current) {
       const map = mapRef.current;
 
-      map.setCenter(initialCenter);
-      map.setZoom(initialZoom);
-      setCurrentZoom(initialZoom); // Reset the zoom state
+      if (initialCenter) {
+        map.setCenter(initialCenter);
+        map.setZoom(initialZoom);
+        setCurrentZoom(initialZoom);
+      }
     }
   };
 
@@ -59,17 +82,24 @@ function MapComponent() {
           currentZoom !== initialZoom ? "visible" : ""
         }`}
       >
-        <div className="tooltip-container">
-          <span className="tooltip">リセット</span>
-          <span className="text">
-            <img
-              onClick={resetMap}
-              src="https://img.icons8.com/ios-filled/100/recurring-appointment.png"
-              alt="Kumasan"
-            />
-          </span>
-        </div>
+        <span className="tooltip">リセット</span>
+        <span className="text">
+          <img
+            onClick={resetMap}
+            src="https://img.icons8.com/ios-filled/100/recurring-appointment.png"
+            alt="Kumasan"
+          />
+        </span>
       </div>
+
+      {/* <div className="my-location-container">
+        <div className="my-location-icon">
+          <img
+            src="https://img.icons8.com/keek/100/map-pin.png"
+            alt="Kumasan"
+          />
+        </div>
+      </div> */}
     </>
   );
 }

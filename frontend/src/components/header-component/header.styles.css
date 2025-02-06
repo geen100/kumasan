@@ -38,12 +38,12 @@
 
 .menu-icon:hover,
 .menu-icon:active {
-  background-color: black;
+  background-color: #00000044;
   transition: all 0.3s ease-in-out;
 }
 
 .menu-icon:hover .menu-icon-img {
-  content: url('https://img.icons8.com/ios-filled/500/FFFFFF/menu--v6.png');
+  content: url('https://img.icons8.com/ios-filled/500/menu--v6.png');
 }
 
 .kumasan-logo {
@@ -59,7 +59,6 @@
 .menu-icon.active {
   transition: all 0.3s ease-in-out;
   border-radius: 10px;
-  border: 3px solid #000000;
   transform: rotate(180deg);
   transition: all 0.3s ease-in-out;
 }
@@ -70,11 +69,31 @@
 }
 
 .menu-icon.active:hover {
-  background-color: #000000;
+  background-color: #00000044;
   transition: all 0.3s ease-in-out;
 }
 
 .menu-icon.active:hover .menu-icon-img {
-  content: url('https://img.icons8.com/ios-filled/100/FFFFFF/double-right.png');
+  content: url('https://img.icons8.com/ios-filled/100/double-right.png');
   transition: all 0.3s ease-in-out;
+}
+
+.my-location-container {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  z-index: 100;
+  background-color: #00000044;
+}
+
+.my-location-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.my-location-icon img {
+  width: 100%;
+  height: 100%;
 }

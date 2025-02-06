@@ -9,7 +9,7 @@
 }
 
 .map-control {
-    background-color: #ffd000;
+    background-color: #ffdfcb;
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.5);
     border-radius: 10cm;
     position: absolute;
@@ -29,13 +29,6 @@
     background-color: #000000;
     transform: scale(1.05);
     transition: all 0.3s ease-in-out;
-}
-
-.tooltip-container {
-    position: relative;
-    cursor: pointer;
-    top: 3px;
-    transition: all 0.2s;
 }
 
 .tooltip {
@@ -68,10 +61,15 @@
     background: var(--background-tooltip);
 }
 
-.tooltip-container:hover .tooltip {
+.map-control:hover .tooltip {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+}
+
+.text {
+    position: relative;
+    top: 3px;
 }
 
 .text img {
@@ -80,6 +78,6 @@
     transition: filter 0.3s ease-in-out;
 }
 
-.tooltip-container:hover .text img {
+.map-control:hover .text img {
     filter: invert(1);
 }
