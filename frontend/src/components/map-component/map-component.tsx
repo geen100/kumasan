@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import "./map.styles.css";
-import mapPin from "../../assets/icons/map-pin_icon.png";
 
 function MapComponent() {
   const mapRef = useRef<H.Map | null>(null);
@@ -54,11 +53,23 @@ function MapComponent() {
       <div className="map-container">
         <div id="map"></div>
       </div>
-      {currentZoom !== initialZoom && (
-        <div className="map-control">
-          <img onClick={resetMap} src={mapPin} alt="Kumasan" />
+
+      <div
+        className={`map-control ${
+          currentZoom !== initialZoom ? "visible" : ""
+        }`}
+      >
+        <div className="tooltip-container">
+          <span className="tooltip">リセット</span>
+          <span className="text">
+            <img
+              onClick={resetMap}
+              src="https://img.icons8.com/ios-filled/100/recurring-appointment.png"
+              alt="Kumasan"
+            />
+          </span>
         </div>
-      )}
+      </div>
     </>
   );
 }

@@ -9,28 +9,77 @@
 }
 
 .map-control {
-    background-color: #ffffff;
+    background-color: #ffd000;
     box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.5);
     border-radius: 10cm;
     position: absolute;
     bottom: 40px;
-    right: 40px;
+    left: 50%;
     padding: 10px;
     z-index: 100;
     transition: all 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.map-control.visible {
+    opacity: 1;
 }
 
 .map-control:hover {
-    transform: scale(1.4) translate(-10px, -10px);
+    background-color: #000000;
+    transform: scale(1.05);
     transition: all 0.3s ease-in-out;
 }
 
-.map-control img {
-    width: 50px;
-    height: 50px;
+.tooltip-container {
+    position: relative;
+    cursor: pointer;
+    top: 3px;
+    transition: all 0.2s;
 }
 
-.map-control-zoom {
+.tooltip {
+    --background-tooltip: #6e7681;
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5em;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    background: var(--background-tooltip);
+    color: white;
+    border-radius: 5px;
+    width: 120px;
+    height: 50px;
     font-size: 20px;
-    font-weight: 600;
+    text-align: center;
+}
+
+.tooltip::before {
+    position: absolute;
+    content: "";
+    height: 0.6em;
+    width: 0.6em;
+    bottom: -0.2em;
+    left: 50%;
+    transform: translate(-50%) rotate(45deg);
+    background: var(--background-tooltip);
+}
+
+.tooltip-container:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.text img {
+    width: 50px;
+    height: 50px;
+    transition: filter 0.3s ease-in-out;
+}
+
+.tooltip-container:hover .text img {
+    filter: invert(1);
 }
