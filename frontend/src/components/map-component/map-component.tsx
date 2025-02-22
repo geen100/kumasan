@@ -7,7 +7,7 @@ function MapComponent() {
     lat: number;
     lng: number;
   } | null>(null);
-  const initialZoom = 10;
+  const initialZoom = 18;
   const [currentZoom, setCurrentZoom] = useState(initialZoom);
 
   useEffect(() => {
@@ -48,6 +48,12 @@ function MapComponent() {
       const mapEvents = new H.mapevents.MapEvents(map);
       new H.mapevents.Behavior(mapEvents);
       H.ui.UI.createDefault(map, defaultLayers);
+
+      const markerIcon = new H.map.Icon(
+        "https://img.icons8.com/stickers/70/marker.png"
+      );
+      const marker = new H.map.Marker(initialCenter, { icon: markerIcon });
+      map.addObject(marker);
 
       map.addEventListener("mapviewchangeend", () => {
         setCurrentZoom(map.getZoom());
@@ -92,14 +98,16 @@ function MapComponent() {
         </span>
       </div>
 
-      {/* <div className="my-location-container">
-        <div className="my-location-icon">
+      <div className="add-data">
+        <span className="tooltip-add-data">追加する</span>
+        <span className="text-add-data">
           <img
-            src="https://img.icons8.com/keek/100/map-pin.png"
+            onClick={resetMap}
+            src="https://img.icons8.com/ios-filled/100/plus-math.png"
             alt="Kumasan"
           />
-        </div>
-      </div> */}
+        </span>
+      </div>
     </>
   );
 }

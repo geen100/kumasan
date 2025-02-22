@@ -81,3 +81,73 @@
 .map-control:hover .text img {
     filter: invert(1);
 }
+
+.add-data {
+    background-color: #ffe100;
+    box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 10cm;
+    position: absolute;
+    bottom: 40px;
+    right: 3%;
+    padding: 10px;
+    z-index: 100;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-data:hover {
+    background-color: #000000;
+    transform: scale(1.05);
+    transition: all 0.3s ease-in-out;
+}
+
+
+.tooltip-add-data {
+    --background-tooltip: #6e7681;
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5em;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    background: var(--background-tooltip);
+    color: white;
+    border-radius: 5px;
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.tooltip-add-data::before {
+    position: absolute;
+    content: "";
+    height: 0.6em;
+    width: 0.6em;
+    bottom: -0.2em;
+    left: 50%;
+    transform: translate(-50%) rotate(45deg);
+    background: var(--background-tooltip);
+}
+
+.add-data:hover .tooltip-add-data {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.text-add-data {
+    position: relative;
+    top: 3px;
+}
+
+.text-add-data img {
+    width: 50px;
+    height: 50px;
+    transition: filter 0.3s ease-in-out;
+}
+
+.add-data:hover .text-add-data img {
+    filter: invert(1);
+}
