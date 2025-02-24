@@ -43,7 +43,11 @@ function HeaderComponent() {
                 className="menu-icon-img"
               />
             </button>
-            <img src={KUMA_LOGO} alt="logo" className="kumasan-logo" />
+            <img
+              src={KUMA_LOGO}
+              alt="logo"
+              className={`kumasan-logo ${isMenuOpen ? "hidden" : ""}`}
+            />
           </div>
           <div className="header-right"></div>
         </div>

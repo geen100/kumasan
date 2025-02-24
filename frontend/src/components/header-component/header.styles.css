@@ -49,6 +49,14 @@
 .kumasan-logo {
   width: auto;
   height: 70px;
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+.kumasan-logo.hidden {
+  width: auto;
+  height: 70px;
+  opacity: 0;
 }
 
 .header-right {

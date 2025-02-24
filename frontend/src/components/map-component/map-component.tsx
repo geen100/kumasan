@@ -28,7 +28,7 @@ function MapComponent() {
 
   useEffect(() => {
     if (!initialCenter) return;
-    console.log("initialCenter", initialCenter);
+    // console.log("initialCenter", initialCenter);
 
     const platform = new H.service.Platform({
       apikey: import.meta.env.VITE_HERE_MAP_API_KEY,
@@ -88,7 +88,7 @@ function MapComponent() {
           currentZoom !== initialZoom ? "visible" : ""
         }`}
       >
-        <span className="tooltip">リセット</span>
+        <span className="tooltip">リセット？</span>
         <span className="text">
           <img
             onClick={resetMap}
@@ -99,7 +99,7 @@ function MapComponent() {
       </div>
 
       <div className="add-data">
-        <span className="tooltip-add-data">追加する</span>
+        <span className="tooltip-add-data">追加する？</span>
         <span className="text-add-data">
           <img
             onClick={resetMap}
